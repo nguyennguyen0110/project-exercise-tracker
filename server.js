@@ -41,7 +41,7 @@ app.route('/api/users').get((req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
     if (err) return console.log(err);
     if (user == null) {
-      let newUser = new User({username: req.body.username, count: 0, log: []});
+      let newUser = new User({username: req.body.username, count: 0});
       newUser.save((err, doc) => {
         if (err) return console.log(err);
         res.json({username: doc.username, _id: doc._id});
@@ -51,8 +51,6 @@ app.route('/api/users').get((req, res) => {
       res.json({'Error': `${user.username} existed. Please choose another one`});
     }
   })
-  //Add findOneAndRemove here to remove the test user
-
 });
 
 app.post('/api/users/:_id/exercises', (req, res) => {
